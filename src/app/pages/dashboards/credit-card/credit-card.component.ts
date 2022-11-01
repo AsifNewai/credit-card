@@ -16,11 +16,22 @@ import { UntypedFormControl } from '@angular/forms';
 // import { fadeInUp400ms } from '../../../../@vex/animations/fade-in-up.animation';
 import { ConfigService } from '../../../../@vex/config/config.service';
 import { Observable } from 'rxjs';
+import { fadeInRight400ms } from 'src/@vex/animations/fade-in-right.animation';
+import { fadeInUp400ms } from 'src/@vex/animations/fade-in-up.animation';
+import { scaleIn400ms } from 'src/@vex/animations/scale-in.animation';
+import { stagger80ms } from 'src/@vex/animations/stagger.animation';
 
 @Component({
   selector: 'vex-credit-card',
   templateUrl: './credit-card.component.html',
-  styleUrls: ['./credit-card.component.scss']
+  styleUrls: ['./credit-card.component.scss'],
+  animations: [
+    stagger80ms,
+    scaleIn400ms,
+    fadeInRight400ms,
+    fadeInUp400ms
+  ],
+  
 })
 export class CreditCardComponent implements OnInit {
 
