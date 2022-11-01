@@ -1,3 +1,8 @@
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { fadeInUp400ms } from './../../../../@vex/animations/fade-in-up.animation';
+import { fadeInRight400ms } from './../../../../@vex/animations/fade-in-right.animation';
+import { scaleIn400ms } from './../../../../@vex/animations/scale-in.animation';
+import { stagger80ms } from './../../../../@vex/animations/stagger.animation';
 import { Component, OnInit } from '@angular/core';
 import { TemplateRef } from '@angular/core';
 import { ScrumboardList } from './interface/scrumboard-list.interface';
@@ -11,7 +16,7 @@ import { filter, map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Scrumboard } from './interface/scrumboard.interface';
 import { PopoverService } from '../../../../@vex/components/popover/popover.service';
-import { UntypedFormControl } from '@angular/forms';
+import { FormControl, UntypedFormControl } from '@angular/forms';
 // import { stagger80ms } from '../../../../@vex/animations/stagger.animation';
 // import { fadeInUp400ms } from '../../../../@vex/animations/fade-in-up.animation';
 import { ConfigService } from '../../../../@vex/config/config.service';
@@ -20,10 +25,32 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'vex-credit-card',
   templateUrl: './credit-card.component.html',
-  styleUrls: ['./credit-card.component.scss']
+  styleUrls: ['./credit-card.component.scss'],
+  animations: [
+    stagger80ms,
+    scaleIn400ms,
+    fadeInRight400ms,
+    fadeInUp400ms,
+    trigger("detailExpand", [
+      state(
+        "collapsed, void",
+        style({ height: "0px", minHeight: "0", display: "none" })
+      ),
+      state("expanded", style({ height: "*" })),
+      transition(
+        "expanded <=> collapsed",
+        animate("225ms cubic-bezier(0.4, 0.0, 0.2, 1)")
+      ),
+      transition(
+        "expanded <=> void",
+        animate("225ms cubic-bezier(0.4, 0.0, 0.2, 1)")
+      ),
+    ]),
+  ],
 })
 export class CreditCardComponent implements OnInit {
 
+  showMenu = true;
   static nextId = 100;
 
   board$ = this.route.paramMap.pipe(
@@ -36,9 +63,12 @@ export class CreditCardComponent implements OnInit {
 
   isVerticalLayout$: Observable<boolean> = this.configService.select(config => config.layout === 'vertical');
 
+
   trackById = trackById;
 
   scrumboardUsers = scrumboardUsers;
+  layoutCtrl = new FormControl("boxed");
+
 
   constructor(private dialog: MatDialog,
               private route: ActivatedRoute,
@@ -46,24 +76,6 @@ export class CreditCardComponent implements OnInit {
               private readonly configService: ConfigService) { }
 
   ngOnInit() {
-  }
-
-  open(board: Scrumboard, list: ScrumboardList, card: ScrumboardCard) {
-    // this.addCardCtrl.setValue(null);
-
-    // this.dialog.open(CreditCardDialogueComponent, {
-    //   data: { card, list, board },
-    //   width: '700px',
-    //   maxWidth: '100%',
-    //   disableClose: true
-    // }).beforeClosed().pipe(
-    //   filter<ScrumboardCard>(Boolean)
-    // ).subscribe(value => {
-    //   const index = list.children.findIndex(child => child.id === card.id);
-    //   if (index > -1) {
-    //     list.children[index] = value;
-    //   }
-    // });
   }
 
   drop(event: CdkDragDrop<ScrumboardCard[]>) {
@@ -87,6 +99,7 @@ export class CreditCardComponent implements OnInit {
         event.currentIndex);
     }
   }
+
 
   getConnectedList(board: Scrumboard) {
     return board.children.map(x => `${x.id}`);
@@ -134,6 +147,9 @@ export class CreditCardComponent implements OnInit {
     });
   }
 
+  open(){
+    this.showMenu = false;
+  }
   createCard(list: ScrumboardList, close: () => void) {
     if (!this.addCardCtrl.value) {
       return;

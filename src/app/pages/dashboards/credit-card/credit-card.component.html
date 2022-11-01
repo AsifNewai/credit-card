@@ -14,7 +14,7 @@
       </div>
     </vex-secondary-toolbar>
   
-    <div (cdkDropListDropped)="dropList($event)"
+    <div *ngIf="showMenu" (cdkDropListDropped)="dropList($event)"
          @stagger
          [cdkDropListData]="board.children"
          cdkDropList
@@ -38,7 +38,7 @@
                cdkDropList
                class="px-4 pb-4"
                id="{{ list.id }}">
-            <div (click)="open(board, list, card)"
+            <div 
                  *ngFor="let card of list.children; trackBy: trackById"
                  [cdkDragData]="card"
                  cdkDrag
@@ -116,7 +116,6 @@
               <mat-label>List Title</mat-label>
               <input [formControl]="addListCtrl" matInput placeholder="Enter your title...">
             </mat-form-field>
-  
             <div class="mt-3 flex items-center justify-between">
               <button (click)="close()" class="text-secondary w-8 h-8 leading-none" mat-icon-button type="button">
                 <mat-icon class="icon-sm" svgIcon="mat:close"></mat-icon>
@@ -127,6 +126,48 @@
         </ng-template>
 
       </div>
+    </div>
+
+    <div *ngIf="!showMenu">
+      <vex-page-layout @stagger>
+      
+        <vex-page-layout-content [class.container]="layoutCtrl.value === 'boxed'"
+           class="-mt-2">
+           <mat-card class="example-card">
+            <mat-card-subtitle><u>Credit Card Online Application</u></mat-card-subtitle>
+            <mat-card-title>Experience a world of rewards & offers!</mat-card-title>
+            <mat-card-subtitle>We'll need a bit of information to get you started</mat-card-subtitle>
+            <mat-card-content>
+              <div class="flex">
+                <div  class="ml-5">
+                  <h1 class="text-lg">Are you an existing Axis Bank customer?</h1>
+                  <div class="ml-4 mt-4">
+                    <mat-radio-group aria-label="Select an option">
+                      <mat-radio-button value="1"><span>Yes</span></mat-radio-button>
+                      &nbsp;&nbsp;
+                      <mat-radio-button value="2"><span>No</span></mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+  
+                </div>
+                <div class="-mt-32 ml-44">
+                  <img src="./../../../../assets/img/demo/credit-cards-card-terminal-vnJ9QJB-600.jpg" alt="">
+                </div>
+              </div>
+
+            </mat-card-content>
+
+            <mat-card-footer>
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </mat-card-footer>
+          </mat-card>
+          <!-- <div class="card overflow-auto">
+            <span class="ml-3">Credit Card Online Application</span>
+            <h2>Experience a world of rewards & offers!</h2>
+            <h3>We'll need a bit of information to get you started</h3>
+          </div> -->
+        </vex-page-layout-content>
+      </vex-page-layout>
     </div>
   
   </div>

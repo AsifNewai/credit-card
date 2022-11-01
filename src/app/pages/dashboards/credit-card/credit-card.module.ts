@@ -19,7 +19,14 @@ import { ScrollbarModule } from '../../../../@vex/components/scrollbar/scrollbar
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DateTokensModule } from '../../../../@vex/pipes/date-tokens/date-tokens.module';
 import { PopoverModule } from '../../../../@vex/components/popover/popover.module';
-import { SecondaryToolbarModule } from '../../../../@vex/components/secondary-toolbar/secondary-toolbar.module';
+import { BreadcrumbsModule } from 'src/@vex/components/breadcrumbs/breadcrumbs.module';
+import { ChartModule } from 'src/@vex/components/chart/chart.module';
+import { PageLayoutModule } from 'src/@vex/components/page-layout/page-layout.module';
+import { SecondaryToolbarModule } from 'src/@vex/components/secondary-toolbar/secondary-toolbar.module';
+import {MatCardModule} from '@angular/material/card';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatRadioModule} from '@angular/material/radio';
+
 
 @NgModule({
   declarations: [
@@ -27,6 +34,10 @@ import { SecondaryToolbarModule } from '../../../../@vex/components/secondary-to
   ],
   imports: [
     CommonModule,
+    BreadcrumbsModule,
+    ChartModule,
+    PageLayoutModule,
+
     CreditCardRoutingModule,
     ReactiveFormsModule,
     MatTooltipModule,
@@ -44,6 +55,9 @@ import { SecondaryToolbarModule } from '../../../../@vex/components/secondary-to
     DateTokensModule,
     PopoverModule,
     SecondaryToolbarModule,
+    MatCardModule,
+    MatProgressBarModule,
+    MatRadioModule
   ],
   providers:[
     // {

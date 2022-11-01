@@ -1,21 +1,16 @@
-import { CreditCardComponent } from './credit-card.component';
+import { OnlineApplicationComponent } from './online-application.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
     path: '',
-    component:CreditCardComponent
+    component:OnlineApplicationComponent
   },
-  {
-    path: 'online',
-    component:CreditCardComponent
-  },
-
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CreditCardRoutingModule { }
+export class OnlineApplicationRoutingModule { }
