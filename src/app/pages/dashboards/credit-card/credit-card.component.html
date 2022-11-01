@@ -64,8 +64,10 @@
         <mat-progress-bar *ngIf="showInnerContent" mode="indeterminate"></mat-progress-bar>
         <mat-card class="example-card" *ngIf="showInnerContent">
           <mat-card-subtitle><u>Credit Card Online Application</u></mat-card-subtitle>
-          <mat-card-title class="ml-12 mat-card-title">Experience a world of rewards & offers!</mat-card-title>
-          <mat-card-subtitle class="ml-24"s>We'll need a bit of information to get you started</mat-card-subtitle>
+          <div class="text-typing ml-12">
+            <mat-card-title class="ml-2 mat-card-title">Experience a world of rewards & offers!</mat-card-title>
+            <mat-card-subtitle class="ml-16"s>We'll need a bit of information to get you started</mat-card-subtitle>
+          </div>   
           <mat-card-content>
             <div class="flex">
               <div class="ml-20 mt-10">
@@ -77,7 +79,6 @@
                     <mat-radio-button value="2"><span>No</span></mat-radio-button>
                   </mat-radio-group>
                 </div>
-
               </div>
               <div class="-mt-48 ml-60">
                 <img class="object-cover" src="./../../../../assets/img/demo/credit_card_PNG137.png" alt="">
@@ -90,31 +91,43 @@
         <!-- if yes -->
         <mat-card class="example-card" *ngIf="isNewUser == 1">
           <mat-card-subtitle><u>New User</u></mat-card-subtitle>
-          <mat-card-title class="ml-12 mat-card-title">Experience a world of rewards & offers!</mat-card-title>
-          <mat-card-subtitle class="ml-24">We'll need a bit of information to get you started</mat-card-subtitle>
+          <!-- <mat-card-subtitle><u>Existing User</u></mat-card-subtitle> -->
+          <mat-card-title class="ml-12 mat-card-title">Register for App!</mat-card-title>
+          <!-- <mat-card-subtitle class="ml-24">We'll need a bit of information to get you started</mat-card-subtitle> -->
           <mat-card-content>
-            <div class="flex">
-              <div class="ml-20 mt-10">
-                <h1 class="text-lg">Are you an existing Axis Bank customer?</h1>
-                <div class="mt-2 ml-20">
-                  <mat-radio-group aria-label="Select an option" (change)="radioChange()" [(ngModel)]="isNewUser">
-                    <mat-radio-button value="1"><span>Yes</span></mat-radio-button>
-                    &nbsp;&nbsp;
-                    <mat-radio-button value="2"><span>No</span></mat-radio-button>
-                  </mat-radio-group>
+              <div class="flex">
+                <div class="ml-12 mt-2">
+                  <mat-tab-group>
+                    <mat-tab label="Login Details">
+                      <div class="mt-2">
+                        <form [formGroup]="form">
+                          <div class="grid grid-cols-2 sm:grid-cols-2 gap-1">
+                            <mat-form-field class="flex-1" appearance="outline" >
+                              <mat-label>Mobile Number</mat-label>
+                              <input matInput type="number" placeholder="Mobile Number" formControlName="mobileNumber" required>
+                            </mat-form-field>
+                            <mat-form-field class="flex-1" appearance="outline">
+                              <mat-label>Date of Birth (as per Aadhaar)</mat-label>
+                              <input matInput [matDatepicker]="picker" formControlName="dob" required>
+                              <mat-hint>MM/DD/YYYY</mat-hint>
+                              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                              <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                          </div>
+                          <div class="actions" fxLayout="row">
+                            <button color="warn" mat-button matStepperPrevious type="button" (click)="cancel()">Canel</button>
+                            <button color="primary" mat-raised-button [disabled]="!form.valid">Send OTP</button>
+                          </div>
+                        </form>
+                      </div>
+                    </mat-tab>
+                  </mat-tab-group>
                 </div>
-
+                <div class="-mt-24 ml-32 mb-20">
+                  <img class="object-cover" src="./../../../../assets/img/demo/Sinch-SMS-Verification-overview-image.png" alt="">
+                </div>
               </div>
-              <div class="-mt-48 ml-60">
-                <img class="object-cover" src="./../../../../assets/img/demo/credit_card_PNG137.png" alt="">
-              </div>
-            </div>
-
           </mat-card-content>
-
-          <mat-card-footer>
-            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-          </mat-card-footer>
         </mat-card>
 
         <!-- if no -->
