@@ -30,23 +30,9 @@ import { Observable } from 'rxjs';
     stagger80ms,
     scaleIn400ms,
     fadeInRight400ms,
-    fadeInUp400ms,
-    trigger("detailExpand", [
-      state(
-        "collapsed, void",
-        style({ height: "0px", minHeight: "0", display: "none" })
-      ),
-      state("expanded", style({ height: "*" })),
-      transition(
-        "expanded <=> collapsed",
-        animate("225ms cubic-bezier(0.4, 0.0, 0.2, 1)")
-      ),
-      transition(
-        "expanded <=> void",
-        animate("225ms cubic-bezier(0.4, 0.0, 0.2, 1)")
-      ),
-    ]),
+    fadeInUp400ms
   ],
+  
 })
 export class CreditCardComponent implements OnInit {
 

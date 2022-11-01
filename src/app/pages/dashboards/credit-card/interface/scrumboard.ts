@@ -10,21 +10,21 @@ export const scrumboardAttachments: ScrumboardAttachment[] = [
     id: 1,
     name: 'business-case.jpg',
     extension: 'jpg',
-    path: 'assets/img/demo/1.jpg',
+    path: 'assets/img/cards/1.svg',
     size: '55 KB'
   },
   {
     id: 2,
     name: 'laptop.jpg',
     extension: 'jpg',
-    path: 'assets/img/demo/2.jpg',
+    path: 'assets/img/cards/2.svg',
     size: '62 KB'
   },
   {
     id: 3,
     name: 'how-to.jpg',
     extension: 'jpg',
-    path: 'assets/img/demo/3.jpg',
+    path: 'assets/img/cards/3.svg',
     size: '35 KB'
   },
   {
@@ -162,7 +162,9 @@ export const scrumboards: Scrumboard[] = [
         children: [
           {
             id: 11,
-            title: 'Fix Issue #332',
+            title: ["Free of charge the first year   "
+          ,"  Up to             2000EUR              limit"
+         ,   "Online purchase protection"],
             description: 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.',
             dueDate: {
               date: DateTime.local().plus({ days: 5 }),
@@ -197,10 +199,14 @@ export const scrumboards: Scrumboard[] = [
         children: [
           {
             id: 22,
-            title: 'Add Forgot Password functionality',
+            title: [
+              "Free of charge the first year   ",
+"Up to 5000EUR",
+"Fully insured with lots of extras"
+            ],
             dueDate: {
               date: DateTime.local().plus({ days: 2 }),
-              done: false
+              done: true
             },
             attachments: [
               scrumboardAttachments[1],
@@ -210,20 +216,24 @@ export const scrumboards: Scrumboard[] = [
               scrumboardUsers[0],
               scrumboardUsers[3]
             ],
-            cover: scrumboardAttachments[3]
+            cover: scrumboardAttachments[1]
           },
         ]
       },
       {
-        id: 2,
+        id: 3,
         label: 'Visa Platinum',
         children: [
           {
             id: 22,
-            title: 'Add Forgot Password functionality',
+            title: [
+             " Free of charge the first year  ",
+"Up to 10 000EUR limit",
+"Fully insured with lots of extras"
+            ],
             dueDate: {
               date: DateTime.local().plus({ days: 2 }),
-              done: false
+              done: true
             },
             attachments: [
               scrumboardAttachments[1],
@@ -233,7 +243,34 @@ export const scrumboards: Scrumboard[] = [
               scrumboardUsers[0],
               scrumboardUsers[3]
             ],
-            cover: scrumboardAttachments[3]
+            cover: scrumboardAttachments[2]
+          },
+        ]
+      },
+      {
+        id: 3,
+        label: 'Visa Diamond',
+        children: [
+          {
+            id: 22,
+            title: [
+             " Free of charge the first year  ",
+"Up to 10 000EUR limit",
+"Fully insured with lots of extras"
+            ],
+            dueDate: {
+              date: DateTime.local().plus({ days: 2 }),
+              done: true
+            },
+            attachments: [
+              scrumboardAttachments[1],
+              scrumboardAttachments[3],
+            ],
+            users: [
+              scrumboardUsers[0],
+              scrumboardUsers[3]
+            ],
+            cover: scrumboardAttachments[2]
           },
         ]
       },
