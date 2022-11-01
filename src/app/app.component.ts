@@ -126,6 +126,13 @@ export class AppComponent {
           {
             type: 'link',
             label: 'Analytics',
+            route: 'analytics',
+            icon: 'mat:insights',
+            routerLinkActiveOptions: { exact: true }
+          },
+          {
+            type: 'link',
+            label: 'Credit-card',
             route: '/',
             icon: 'mat:insights',
             routerLinkActiveOptions: { exact: true }
