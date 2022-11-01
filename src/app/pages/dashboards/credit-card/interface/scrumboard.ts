@@ -163,8 +163,8 @@ export const scrumboards: Scrumboard[] = [
           {
             id: 11,
             title: ["Free of charge the first year   "
-          ,"  Up to             2000EUR              limit"
-         ,   "Online purchase protection"],
+              , "  Up to             2000EUR              limit"
+              , "Online purchase protection"],
             description: 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.',
             dueDate: {
               date: DateTime.local().plus({ days: 5 }),
@@ -192,44 +192,17 @@ export const scrumboards: Scrumboard[] = [
             cover: scrumboardAttachments[0]
           },
         ]
-      },
+      }, 
       {
         id: 2,
-        label: 'Visa Gold',
-        children: [
-          {
-            id: 22,
-            title: [
-              "Free of charge the first year   ",
-"Up to 5000EUR",
-"Fully insured with lots of extras"
-            ],
-            dueDate: {
-              date: DateTime.local().plus({ days: 2 }),
-              done: true
-            },
-            attachments: [
-              scrumboardAttachments[1],
-              scrumboardAttachments[3],
-            ],
-            users: [
-              scrumboardUsers[0],
-              scrumboardUsers[3]
-            ],
-            cover: scrumboardAttachments[1]
-          },
-        ]
-      },
-      {
-        id: 3,
         label: 'Visa Platinum',
         children: [
           {
             id: 22,
             title: [
-             " Free of charge the first year  ",
-"Up to 10 000EUR limit",
-"Fully insured with lots of extras"
+              " Free of charge the first year  ",
+              "Up to 10 000EUR limit",
+              "Online purchase protection"
             ],
             dueDate: {
               date: DateTime.local().plus({ days: 2 }),
@@ -249,14 +222,41 @@ export const scrumboards: Scrumboard[] = [
       },
       {
         id: 3,
+        label: 'Visa Gold',
+        children: [
+          {
+            id: 22,
+            title: [
+              "Free of charge the first year   ",
+              "Up to 5000EUR",
+              "Online purchase protection"
+            ],
+            dueDate: {
+              date: DateTime.local().plus({ days: 2 }),
+              done: true
+            },
+            attachments: [
+              scrumboardAttachments[1],
+              scrumboardAttachments[3],
+            ],
+            users: [
+              scrumboardUsers[0],
+              scrumboardUsers[3]
+            ],
+            cover: scrumboardAttachments[1]
+          },
+        ]
+      },
+      {
+        id: 4,
         label: 'Visa Diamond',
         children: [
           {
             id: 22,
             title: [
-             " Free of charge the first year  ",
-"Up to 10 000EUR limit",
-"Fully insured with lots of extras"
+              " Free of charge the first year  ",
+              "Up to 10 000EUR limit",
+              "Online purchase protection"
             ],
             dueDate: {
               date: DateTime.local().plus({ days: 2 }),

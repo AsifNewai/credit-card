@@ -26,6 +26,11 @@ import { SecondaryToolbarModule } from 'src/@vex/components/secondary-toolbar/se
 import {MatCardModule} from '@angular/material/card';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatRadioModule} from '@angular/material/radio';
+import { FormsModule } from '@angular/forms';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+
 
 
 @NgModule({
@@ -57,13 +62,11 @@ import {MatRadioModule} from '@angular/material/radio';
     SecondaryToolbarModule,
     MatCardModule,
     MatProgressBarModule,
-    MatRadioModule
+    MatRadioModule,
+    FormsModule,
+    MatTabsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers:[
-    // {
-    //   provide: MatDialogRef,
-    //   useValue: {}
-    // },
-  ]
 })
 export class CreditCardModule { }

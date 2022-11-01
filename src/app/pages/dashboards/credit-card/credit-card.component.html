@@ -1,158 +1,195 @@
 <div *ngIf="board$ | async as board" class="h-full w-full overflow-hidden flex flex-col">
 
-    <vex-secondary-toolbar current="Tech Startup Board">
-      <button (click)="toggleStar(board)" class="-ml-2" mat-icon-button type="button">
-        <mat-icon *ngIf="board.starred" class="text-amber" svgIcon="mat:star"></mat-icon>
-        <mat-icon *ngIf="!board.starred" svgIcon="mat:star_border"></mat-icon>
-      </button>
-  
-      <!-- <div *ngIf="scrumboardUsers?.length > 0" class="flex-auto flex items-center justify-end">
-        <img *ngFor="let user of scrumboardUsers"
-             [matTooltip]="user.name"
-             [src]="user.imageSrc"
-             class="avatar overlapping"/>
-      </div> -->
-    </vex-secondary-toolbar>
-  
-    <div *ngIf="showMenu" (cdkDropListDropped)="dropList($event)"
-         @stagger
-         [cdkDropListData]="board.children"
-         cdkDropList
-         cdkDropListOrientation="horizontal"
-         [class.container]="isVerticalLayout$ | async"
-         class="p-gutter min-h-0 overflow-x-auto flex-auto flex items-start gap-6">
-      <div *ngFor="let list of board.children; trackBy: trackById"
-           @fadeInUp
-           [cdkDragData]="list"
-           cdkDrag
-           cdkDropListGroup
-           class="rounded bg-app-bar overflow-hidden max-h-full w-full max-w-2xs flex-none flex flex-col">
-        <div cdkDragHandle class="p-4 cursor-pointer flex-none">
-          <h2 class="subheading-2 font-medium m-0 select-none flex-row  flex  justify-content-center">{{ list.label }}</h2>
-        </div>
-  
-        <vex-scrollbar class="flex-auto">
-          <div (cdkDropListDropped)="drop($event)"
-               [cdkDropListConnectedTo]="getConnectedList(board)"
-               [cdkDropListData]="list.children"
-               cdkDropList
-               class="px-4 pb-4"
-               id="{{ list.id }}">
-            <div 
-                 *ngFor="let card of list.children; trackBy: trackById"
-                 [cdkDragData]="card"
-                 cdkDrag
-                 class="scrumboard-card card w-full cursor-pointer overflow-hidden select-none">
-  
-              <div *ngIf="card.cover" class="w-full h-60 overflow-hidden">
-                <img [src]="card.cover.path" class="object-cover w-full h-full"/>
-              </div>
-  
-              <div class="p-4">
-                <!-- <div *ngIf="card.labels?.length > 0" class="mb-2 flex gap-4">
-                  <div *ngFor="let label of card.labels"
-                       [ngClass]="label.bgClass"
-                       class="label flex-1"></div>
-                </div> -->
-<div class="flex align-items-center h-10" *ngFor="let title of card.title"  >         
-         <mat-icon class="icon-xs" svgIcon="mat:check_circle_outline"></mat-icon>
-  <h3 class="body-2 ml-2  select-none">{{title }}</h3></div>
-  
-                <div *ngIf="card.dueDate || card.comments?.length > 0 || card.attachments?.length > 0 || card.users?.length > 0"
-                     class="mt-2 flex gap-4">
-                  <div 
-                       [ngClass]="{ 'bg-green text-contrast-white': card.dueDate.done, 'bg-app-bar text-secondary': !card.dueDate.done }"
-                       class="box rounded caption">
-                    <mat-icon class="icon-xs" svgIcon="mat:arrow_forward"></mat-icon>
-                    <span class="box-text">Learn More</span>
-                  </div>
-<!--   
-                  <div *ngIf="card.comments?.length > 0" class="box bg-app-bar text-secondary rounded caption">
-                    <mat-icon class="ml-1 icon-xs" svgIcon="mat:insert_comment"></mat-icon>
-                    <span class="box-text">{{ card.comments.length }}</span>
-                  </div>
-  
-                  <div *ngIf="card.attachments?.length > 0" class="box bg-app-bar text-secondary rounded caption">
-                    <mat-icon class="icon-xs" svgIcon="mat:attach_file"></mat-icon>
-                    <span class="box-text">{{ card.attachments.length }}</span>
-                  </div> -->
-  
-                  <!-- <div *ngIf="card.users?.length > 0" class="flex-1 flex items-center justify-end">
-                    <img *ngFor="let user of card.users"
-                         [matTooltip]="user.name"
-                         [src]="user.imageSrc"
-                         class="avatar overlapping"/>
-                  </div> -->
-                </div>
-              </div>
-            </div>
-          </div>
-        </vex-scrollbar>
-  
-  
-        <div #addCardOriginRef class="bg-hover flex-none">
-          <ng-template #addCardTemplate let-close="close">
-            <div class="card px-4 py-6">
-              <mat-form-field class="vex-dense-form-field">
-                <mat-label>Card Title</mat-label>
-                <input [formControl]="addCardCtrl" matInput placeholder="Enter your title...">
-                <button (click)="createCard(list, close)"
-                        class="-top-1"
-                        color="primary"
-                        mat-button
-                        matSuffix
-                        type="button">CREATE
-                </button>
-              </mat-form-field>
-            </div>
-          </ng-template>
-  
-        </div>
+  <vex-secondary-toolbar current="Tech Startup Board">
+    <button (click)="toggleStar(board)" class="-ml-2" mat-icon-button type="button">
+      <mat-icon *ngIf="board.starred" class="text-amber" svgIcon="mat:star"></mat-icon>
+      <mat-icon *ngIf="!board.starred" svgIcon="mat:star_border"></mat-icon>
+    </button>
+  </vex-secondary-toolbar>
+
+  <div *ngIf="showMenu" (cdkDropListDropped)="dropList($event)" @stagger [cdkDropListData]="board.children" cdkDropList
+    cdkDropListOrientation="horizontal" [class.container]="isVerticalLayout$ | async"
+    class="p-gutter min-h-0 overflow-x-auto flex-auto flex items-start gap-6">
+    <div *ngFor="let list of board.children; trackBy: trackById" @fadeInUp [cdkDragData]="list" cdkDrag cdkDropListGroup
+      class="rounded bg-app-bar overflow-hidden max-h-full w-full max-w-2xs flex-none flex flex-col">
+      <div cdkDragHandle class="p-4 cursor-pointer flex-none">
+        <h2 class="subheading-2 font-medium m-0 select-none flex-row  flex  justify-content-center">{{ list.label }}
+        </h2>
       </div>
 
-    </div>
+      <vex-scrollbar class="flex-auto">
+        <div (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="getConnectedList(board)"
+          [cdkDropListData]="list.children" cdkDropList class="px-4 pb-4" id="{{ list.id }}">
+          <div *ngFor="let card of list.children; trackBy: trackById" [cdkDragData]="card" cdkDrag
+            class="scrumboard-card card w-full cursor-pointer overflow-hidden select-none">
 
-    <div *ngIf="!showMenu">
-      <vex-page-layout @stagger>
-      
-        <vex-page-layout-content [class.container]="layoutCtrl.value === 'boxed'"
-           class="-mt-2">
-           <mat-card class="example-card">
-            <mat-card-subtitle><u>Credit Card Online Application</u></mat-card-subtitle>
-            <mat-card-title>Experience a world of rewards & offers!</mat-card-title>
-            <mat-card-subtitle>We'll need a bit of information to get you started</mat-card-subtitle>
-            <mat-card-content>
-              <div class="flex">
-                <div  class="ml-5">
-                  <h1 class="text-lg">Are you an existing Axis Bank customer?</h1>
-                  <div class="ml-4 mt-4">
-                    <mat-radio-group aria-label="Select an option">
-                      <mat-radio-button value="1"><span>Yes</span></mat-radio-button>
-                      &nbsp;&nbsp;
-                      <mat-radio-button value="2"><span>No</span></mat-radio-button>
-                    </mat-radio-group>
-                  </div>
-  
-                </div>
-                <div class="-mt-32 ml-44">
-                  <img src="./../../../../assets/img/demo/credit-cards-card-terminal-vnJ9QJB-600.jpg" alt="">
-                </div>
+            <div *ngIf="card.cover" class="w-full h-60 overflow-hidden">
+              <img [src]="card.cover.path" class="object-cover w-full h-full" />
+            </div>
+
+            <div class="p-4">
+
+              <div class="flex align-items-center h-10" *ngFor="let title of card.title">
+                <mat-icon class="icon-xs" svgIcon="mat:check_circle_outline"></mat-icon>
+                <h3 class="body-2 ml-2  select-none">{{title }}</h3>
               </div>
 
-            </mat-card-content>
+              <div
+                *ngIf="card.dueDate || card.comments?.length > 0 || card.attachments?.length > 0 || card.users?.length > 0"
+                class="mt-2 flex gap-4">
+                <div
+                  [ngClass]="{ 'bg-green text-contrast-white': card.dueDate.done, 'bg-app-bar text-secondary': !card.dueDate.done }"
+                  class="box rounded caption">
+                  <span class="box-text">Learn More</span>
 
-            <mat-card-footer>
-              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-            </mat-card-footer>
-          </mat-card>
-          <!-- <div class="card overflow-auto">
-            <span class="ml-3">Credit Card Online Application</span>
-            <h2>Experience a world of rewards & offers!</h2>
-            <h3>We'll need a bit of information to get you started</h3>
-          </div> -->
-        </vex-page-layout-content>
-      </vex-page-layout>
+                </div>
+              </div>
+              <button (click)="open()"
+                class="bg-transparent hover:bg-blue-500 mt-2 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                Request a Visa
+              </button>
+            </div>
+          </div>
+        </div>
+      </vex-scrollbar>
+
     </div>
-  
+
   </div>
+
+  <div *ngIf="!showMenu">
+    <vex-page-layout @stagger>
+      <vex-page-layout-content [class.container]="layoutCtrl.value === 'boxed'" class="-mt-2">
+
+        <mat-progress-bar *ngIf="showInnerContent" mode="indeterminate"></mat-progress-bar>
+        <mat-card class="example-card" *ngIf="showInnerContent">
+          <mat-card-subtitle><u>Credit Card Online Application</u></mat-card-subtitle>
+          <mat-card-title class="ml-12 mat-card-title">Experience a world of rewards & offers!</mat-card-title>
+          <mat-card-subtitle class="ml-24"s>We'll need a bit of information to get you started</mat-card-subtitle>
+          <mat-card-content>
+            <div class="flex">
+              <div class="ml-20 mt-10">
+                <h1 class="text-lg">Are you an existing Axis Bank customer?</h1>
+                <div class="mt-2 ml-20">
+                  <mat-radio-group aria-label="Select an option" (change)="radioChange()" [(ngModel)]="isNewUser">
+                    <mat-radio-button value="1"><span>Yes</span></mat-radio-button>
+                    &nbsp;&nbsp;
+                    <mat-radio-button value="2"><span>No</span></mat-radio-button>
+                  </mat-radio-group>
+                </div>
+
+              </div>
+              <div class="-mt-48 ml-60">
+                <img class="object-cover" src="./../../../../assets/img/demo/credit_card_PNG137.png" alt="">
+              </div>
+            </div>
+
+          </mat-card-content>
+        </mat-card>
+
+        <!-- if yes -->
+        <mat-card class="example-card" *ngIf="isNewUser == 1">
+          <mat-card-subtitle><u>New User</u></mat-card-subtitle>
+          <mat-card-title class="ml-12 mat-card-title">Experience a world of rewards & offers!</mat-card-title>
+          <mat-card-subtitle class="ml-24">We'll need a bit of information to get you started</mat-card-subtitle>
+          <mat-card-content>
+            <div class="flex">
+              <div class="ml-20 mt-10">
+                <h1 class="text-lg">Are you an existing Axis Bank customer?</h1>
+                <div class="mt-2 ml-20">
+                  <mat-radio-group aria-label="Select an option" (change)="radioChange()" [(ngModel)]="isNewUser">
+                    <mat-radio-button value="1"><span>Yes</span></mat-radio-button>
+                    &nbsp;&nbsp;
+                    <mat-radio-button value="2"><span>No</span></mat-radio-button>
+                  </mat-radio-group>
+                </div>
+
+              </div>
+              <div class="-mt-48 ml-60">
+                <img class="object-cover" src="./../../../../assets/img/demo/credit_card_PNG137.png" alt="">
+              </div>
+            </div>
+
+          </mat-card-content>
+
+          <mat-card-footer>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </mat-card-footer>
+        </mat-card>
+
+        <!-- if no -->
+        <mat-card class="example-card" *ngIf="isNewUser == 2">
+          <!-- <mat-card-subtitle><u>Existing User</u></mat-card-subtitle> -->
+          <mat-card-title class="ml-12 mat-card-title">Let's get started!</mat-card-title>
+          <!-- <mat-card-subtitle class="ml-24">We'll need a bit of information to get you started</mat-card-subtitle> -->
+          <mat-card-content>
+              <div class="flex">
+                <div class="ml-12 mt-2">
+                  <mat-tab-group>
+                    <mat-tab>
+                      <ng-template mat-tab-label>
+                        Customer Details
+                      </ng-template>
+                      <div class="mt-2">
+                        <form [formGroup]="form">
+                          <div class="grid grid-cols-2 sm:grid-cols-2 gap-1">
+                            <mat-form-field class="flex-1" appearance="outline" >
+                              <mat-label>Mobile Number</mat-label>
+                              <input matInput type="number" placeholder="Mobile Number" formControlName="mobileNumber" required>
+                            </mat-form-field>
+                            <mat-form-field class="flex-1" appearance="outline">
+                              <mat-label>PAN Number</mat-label>
+                              <input matInput placeholder="PAN Number" formControlName="panNumber" required>
+                            </mat-form-field>
+                          </div>
+                          <div class="grid grid-cols-2 sm:grid-cols-2 gap-1">
+                            <mat-form-field class="flex-1" appearance="outline">
+                              <mat-label>Pincode</mat-label>
+                              <input matInput type="number" placeholder="Pincode" formControlName="pincode" required>
+                            </mat-form-field>
+                            <mat-form-field class="flex-1" appearance="outline">
+                              <mat-label>Net Annual Income(₹)</mat-label>
+                              <input matInput placeholder="Net Annual Income(₹)" type="number" formControlName="annualIncome" required>
+                            </mat-form-field>
+                          </div>
+                          <div class="grid grid-cols-2 sm:grid-cols-2 gap-1">
+                            <mat-form-field class="flex-1" appearance="outline">
+                              <mat-label>Name as per Aadhaar</mat-label>
+                              <input matInput type="text" placeholder="Name as per Aadhaar" formControlName="name" required>
+                            </mat-form-field>
+                            <!-- <mat-form-field class="flex-1" appearance="outline">
+                              <mat-label>Date of Birth (as per Aadhaar)</mat-label>
+                              <input matInput placeholder="Date of Birth (as per Aadhaar)" type="date" formControlName="dob" required>
+                            </mat-form-field> -->
+                            <mat-form-field class="flex-1" appearance="outline">
+                              <mat-label>Date of Birth (as per Aadhaar)</mat-label>
+                              <input matInput [matDatepicker]="picker" formControlName="dob" required>
+                              <mat-hint>MM/DD/YYYY</mat-hint>
+                              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                              <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                          </div>
+                          <div class="actions" fxLayout="row">
+                            <button color="warn" mat-button matStepperPrevious type="button" (click)="cancel()">Canel</button>
+                            <button color="primary" mat-raised-button [disabled]="!form.valid">Submit</button>
+                          </div>
+                        </form>
+                      </div>
+
+                    </mat-tab>
+                  </mat-tab-group>
+                </div>
+                <div class="-mt-48 ml-60">
+                  <img class="object-cover" src="./../../../../assets/img/demo/credit_card_PNG137.png" alt="">
+                </div>
+              </div>
   
+
+          </mat-card-content>
+        </mat-card>
+
+      </vex-page-layout-content>
+    </vex-page-layout>
+  </div>
+
+</div>

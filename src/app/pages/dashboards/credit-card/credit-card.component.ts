@@ -16,7 +16,7 @@ import { filter, map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Scrumboard } from './interface/scrumboard.interface';
 import { PopoverService } from '../../../../@vex/components/popover/popover.service';
-import { FormControl, UntypedFormControl } from '@angular/forms';
+import { FormControl, UntypedFormControl, FormGroup, FormBuilder } from '@angular/forms';
 // import { stagger80ms } from '../../../../@vex/animations/stagger.animation';
 // import { fadeInUp400ms } from '../../../../@vex/animations/fade-in-up.animation';
 import { ConfigService } from '../../../../@vex/config/config.service';
@@ -46,10 +46,10 @@ export class CreditCardComponent implements OnInit {
 
   addCardCtrl = new UntypedFormControl();
   addListCtrl = new UntypedFormControl();
-
+  isNewUser:number;
+  showInnerContent = true;
   isVerticalLayout$: Observable<boolean> = this.configService.select(config => config.layout === 'vertical');
-
-
+  form:FormGroup;
   trackById = trackById;
 
   scrumboardUsers = scrumboardUsers;
@@ -59,9 +59,17 @@ export class CreditCardComponent implements OnInit {
   constructor(private dialog: MatDialog,
               private route: ActivatedRoute,
               private popover: PopoverService,
-              private readonly configService: ConfigService) { }
+              private readonly configService: ConfigService,private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.form = this.fb.group({
+      mobileNumber:[],
+      panNumber:[],
+      pincode:[],
+      annualIncome:[],
+      name:[],
+      dob:[],
+    })
   }
 
   drop(event: CdkDragDrop<ScrumboardCard[]>) {
@@ -75,6 +83,13 @@ export class CreditCardComponent implements OnInit {
     }
   }
 
+  radioChange(){
+    if(this.isNewUser){
+      this.showInnerContent = false;
+    }else{
+      this.showInnerContent = true;
+    }
+  }
   dropList(event: CdkDragDrop<ScrumboardList[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -85,7 +100,6 @@ export class CreditCardComponent implements OnInit {
         event.currentIndex);
     }
   }
-
 
   getConnectedList(board: Scrumboard) {
     return board.children.map(x => `${x.id}`);
@@ -135,6 +149,11 @@ export class CreditCardComponent implements OnInit {
 
   open(){
     this.showMenu = false;
+  }
+
+  cancel(){
+    this.showInnerContent = true;
+    this.isNewUser = 0;
   }
   createCard(list: ScrumboardList, close: () => void) {
     if (!this.addCardCtrl.value) {
