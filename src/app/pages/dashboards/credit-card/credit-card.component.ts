@@ -152,6 +152,7 @@ export class CreditCardComponent implements OnInit {
   }
 
   cancel(){
+    this.form.reset();
     this.showInnerContent = true;
     this.isNewUser = 0;
   }
@@ -163,6 +164,10 @@ export class CreditCardComponent implements OnInit {
     close();
 
     this.addCardCtrl.setValue(null);
+  }
+
+  back(){
+    this.showMenu = true;
   }
 
   createList(board: Scrumboard, close: () => void) {

@@ -121,15 +121,8 @@ export class AppComponent {
     this.navigationService.items = [
       {
         type: 'subheading',
-        label: 'Dashboards',
+        label: 'Home',
         children: [
-          {
-            type: 'link',
-            label: 'Analytics',
-            route: 'analytics',
-            icon: 'mat:insights',
-            routerLinkActiveOptions: { exact: true }
-          },
           {
             type: 'link',
             label: 'Credit-card',
@@ -138,7 +131,21 @@ export class AppComponent {
             routerLinkActiveOptions: { exact: true }
           }
         ]
-      }
+      },
+      {
+        type: 'link',
+        label: 'Banking',
+        route: '/credit-card1',
+        icon: 'mat:insights',
+        routerLinkActiveOptions: { exact: true }
+      },
+      {
+        type: 'link',
+        label: 'Investing',
+        route: '/credit-card2',
+        icon: 'mat:insights',
+        routerLinkActiveOptions: { exact: true }
+      },
     ];
   }
 }

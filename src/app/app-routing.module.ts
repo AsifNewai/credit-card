@@ -8,19 +8,22 @@ const routes: Routes = [
     component: CustomLayoutComponent,
     children: [
       {
-        path: 'dashboards',
+        path: 'home',
         redirectTo: '/',
         pathMatch: 'full'
       },
       {
-        path: 'analytics',
-        loadChildren: () => import('./pages/dashboards/dashboard-analytics/dashboard-analytics.module').then(m => m.DashboardAnalyticsModule),
-      },
-      {
         path: '',
         loadChildren: () => import('./pages/dashboards/credit-card/credit-card.module').then(m => m.CreditCardModule),
-      }
-
+      },
+      {
+        path: 'credit-card1',
+        loadChildren: () => import('./pages/dashboards/credit-card/credit-card.module').then(m => m.CreditCardModule),
+      },
+      {
+        path: 'credit-card2',
+        loadChildren: () => import('./pages/dashboards/credit-card/credit-card.module').then(m => m.CreditCardModule),
+      },
     ]
   }
 ];

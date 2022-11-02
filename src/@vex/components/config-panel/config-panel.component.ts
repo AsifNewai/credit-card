@@ -40,7 +40,7 @@ export class ConfigPanelComponent {
 
   ConfigName = VexConfigName;
   ColorSchemeName = ColorSchemeName;
-  selectedColor = colorVariables.pink;
+  selectedColor = colorVariables.cyan;
 
   roundedCornerValues: CSSValue[] = [
     {

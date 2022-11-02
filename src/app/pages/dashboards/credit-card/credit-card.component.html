@@ -1,6 +1,6 @@
 <div *ngIf="board$ | async as board" class="h-full w-full overflow-hidden flex flex-col">
 
-  <vex-secondary-toolbar current="Tech Startup Board">
+  <vex-secondary-toolbar current="Credit Card Online Application">
     <button (click)="toggleStar(board)" class="-ml-2" mat-icon-button type="button">
       <mat-icon *ngIf="board.starred" class="text-amber" svgIcon="mat:star"></mat-icon>
       <mat-icon *ngIf="!board.starred" svgIcon="mat:star_border"></mat-icon>
@@ -30,7 +30,7 @@
             <div class="p-4">
 
               <div class="flex align-items-center h-10" *ngFor="let title of card.title">
-                <mat-icon class="icon-xs" svgIcon="mat:check_circle_outline"></mat-icon>
+                <mat-icon class="icon-xs text-green" svgIcon="mat:check_circle_outline"></mat-icon>
                 <h3 class="body-2 ml-2  select-none">{{title }}</h3>
               </div>
 
@@ -47,6 +47,7 @@
               <button (click)="open()"
                 class="bg-transparent hover:bg-blue-500 mt-2 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
                 Request a Visa
+                <mat-icon class="icon-xs" svgIcon="mat:arrow_forward"></mat-icon>
               </button>
             </div>
           </div>
@@ -61,26 +62,31 @@
     <vex-page-layout @stagger>
       <vex-page-layout-content [class.container]="layoutCtrl.value === 'boxed'" class="-mt-2">
 
-        <mat-progress-bar *ngIf="showInnerContent" mode="indeterminate"></mat-progress-bar>
+        <!-- <mat-progress-bar *ngIf="showInnerContent" mode="indeterminate"></mat-progress-bar> -->
         <mat-card class="example-card" *ngIf="showInnerContent">
-          <mat-card-subtitle><u>Credit Card Online Application</u></mat-card-subtitle>
+          <mat-card-subtitle>
+            <button (click)="back()" class="bg-transparent hover:bg-primary text-primary font-semibold hover:text-white py-2 px-4 border border-primary hover:border-transparent rounded">
+              Back
+            </button>
+            <!-- <Button >Back</Button> -->
+          </mat-card-subtitle>
           <div class="text-typing ml-12">
-            <mat-card-title class="ml-2 mat-card-title">Experience a world of rewards & offers!</mat-card-title>
+            <mat-card-title class="ml-2 mat-card-title text-primary">Experience a world of rewards & offers!</mat-card-title>
             <mat-card-subtitle class="ml-16"s>We'll need a bit of information to get you started</mat-card-subtitle>
           </div>   
           <mat-card-content>
             <div class="flex">
               <div class="ml-20 mt-10">
-                <h1 class="text-lg">Are you an existing Axis Bank customer?</h1>
-                <div class="mt-2 ml-20">
-                  <mat-radio-group aria-label="Select an option" (change)="radioChange()" [(ngModel)]="isNewUser">
-                    <mat-radio-button value="1"><span>Yes</span></mat-radio-button>
-                    &nbsp;&nbsp;
-                    <mat-radio-button value="2"><span>No</span></mat-radio-button>
-                  </mat-radio-group>
-                </div>
+                  <h1 class="text-lg">Are you an existing Axis Bank customer?</h1>
+                  <div class="mt-2 ml-20">
+                    <mat-radio-group aria-label="Select an option" (change)="radioChange()" [(ngModel)]="isNewUser">
+                      <mat-radio-button value="1"><span>Yes</span></mat-radio-button>
+                      &nbsp;&nbsp;
+                      <mat-radio-button value="2"><span>No</span></mat-radio-button>
+                    </mat-radio-group>
+                  </div>
               </div>
-              <div class="-mt-48 ml-60">
+              <div class="-mt-44 ml-60">
                 <img class="object-cover" src="./../../../../assets/img/demo/credit_card_PNG137.png" alt="">
               </div>
             </div>
@@ -90,7 +96,7 @@
 
         <!-- if yes -->
         <mat-card class="example-card" *ngIf="isNewUser == 1">
-          <mat-card-subtitle><u>New User</u></mat-card-subtitle>
+          <!-- <mat-card-subtitle><u>New User</u></mat-card-subtitle> -->
           <!-- <mat-card-subtitle><u>Existing User</u></mat-card-subtitle> -->
           <mat-card-title class="ml-12 mat-card-title">Register for App!</mat-card-title>
           <!-- <mat-card-subtitle class="ml-24">We'll need a bit of information to get you started</mat-card-subtitle> -->
