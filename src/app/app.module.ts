@@ -1,3 +1,4 @@
+import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -15,12 +16,13 @@ import { CustomLayoutModule } from './custom-layout/custom-layout.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-
+    MatDialogModule,
     // Vex
     VexModule,
     CustomLayoutModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[MatDialogModule]
 })
 export class AppModule { }

@@ -1,6 +1,8 @@
+import { MatTableModule } from '@angular/material/table';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { CreditCardRoutingModule } from './credit-card-routing.module';
 import { CreditCardComponent } from './credit-card.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -42,7 +44,7 @@ import {MatNativeDateModule} from '@angular/material/core';
     BreadcrumbsModule,
     ChartModule,
     PageLayoutModule,
-
+    MatTableModule,
     CreditCardRoutingModule,
     ReactiveFormsModule,
     MatTooltipModule,
@@ -66,7 +68,9 @@ import {MatNativeDateModule} from '@angular/material/core';
     FormsModule,
     MatTabsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    RouterModule,
+    HttpClientModule
   ],
 })
 export class CreditCardModule { }

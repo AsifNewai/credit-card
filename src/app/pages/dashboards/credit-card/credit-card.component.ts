@@ -1,4 +1,4 @@
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { OnlineApplicationComponent } from './online-application/online-application.component';
 import { fadeInUp400ms } from './../../../../@vex/animations/fade-in-up.animation';
 import { fadeInRight400ms } from './../../../../@vex/animations/fade-in-right.animation';
 import { scaleIn400ms } from './../../../../@vex/animations/scale-in.animation';
@@ -11,17 +11,15 @@ import { ScrumboardCard } from './interface/scrumboard-card.interface';
 import { trackById } from '../../../../@vex/utils/track-by';
 import { scrumboards, scrumboardUsers } from './interface/scrumboard';
 import { MatDialog } from '@angular/material/dialog';
-// import { ScrumboardDialogComponent } from './components/scrumboard-dialog/scrumboard-dialog.component';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Scrumboard } from './interface/scrumboard.interface';
 import { PopoverService } from '../../../../@vex/components/popover/popover.service';
 import { FormControl, UntypedFormControl, FormGroup, FormBuilder } from '@angular/forms';
-// import { stagger80ms } from '../../../../@vex/animations/stagger.animation';
-// import { fadeInUp400ms } from '../../../../@vex/animations/fade-in-up.animation';
 import { ConfigService } from '../../../../@vex/config/config.service';
 import { Observable } from 'rxjs';
-
+import { HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'vex-credit-card',
   templateUrl: './credit-card.component.html',
@@ -34,11 +32,28 @@ import { Observable } from 'rxjs';
   ],
   
 })
-export class CreditCardComponent implements OnInit {
 
+
+export class CreditCardComponent implements OnInit {
+  // {position: 1, name: 'Alex', cardtype: 'Gold Visa', symbol: 'H'},
+
+  ELEMENT_DATA: any[] = [
+    {position: 1, name: 'Alex', cardtype: 'Gold Visa'},
+    {position: 2, name: 'Tom', cardtype: 'Classic Visa'},
+  ];
+  displayedColumns: string[] = ['position', 'name', 'cardtype'];
+  dataSource = this.ELEMENT_DATA;
+  clickedRows = new Set();
   showMenu = true;
   static nextId = 100;
-
+  visaId = null;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'text/xml',
+      'Authorization': 'Basic ' + btoa('aniketg@appcino.com:aniket@0106')
+    })
+  };
+  isSubmit = null;
   board$ = this.route.paramMap.pipe(
     map(paramMap => +paramMap.get('scrumboardId')),
     map(scrumboardId => scrumboards.find(board => board.id === 1))
@@ -57,6 +72,7 @@ export class CreditCardComponent implements OnInit {
 
 
   constructor(private dialog: MatDialog,
+              private http:HttpClient,
               private route: ActivatedRoute,
               private popover: PopoverService,
               private readonly configService: ConfigService,private fb: FormBuilder) { }
@@ -147,7 +163,19 @@ export class CreditCardComponent implements OnInit {
     });
   }
 
-  open(){
+  open(id){
+    let cardType
+    if(id==1){
+      cardType = 'Classic Visa'
+    }else if(id==2){
+      cardType = 'Platinum Visa'
+    }else if(id==3){
+      cardType = 'Gold Visa'
+    }else{
+      cardType = 'Diamond Visa'
+    }
+    this.isSubmit = false;
+    this.visaId = cardType;
     this.showMenu = false;
   }
 
@@ -183,6 +211,22 @@ export class CreditCardComponent implements OnInit {
 
   toggleStar(board: Scrumboard) {
     board.starred = !board.starred;
+  }
+
+  openDialogue(){
+   this.http.post("https://cc-dev.appiancloud.com/suite/webapi/generateRequest?clientId=1",{},this.httpOptions).subscribe((res)=>{
+    this.isSubmit=true;
+    const dialogRef = this.dialog.open(OnlineApplicationComponent, {
+      width: '630px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.form.reset();
+      this.showMenu = true;
+      this.showInnerContent = true;
+      this.isNewUser = 0;
+    });   
+  })
+
   }
 
 }
