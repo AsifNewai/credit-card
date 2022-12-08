@@ -119,7 +119,7 @@
                                 <input matInput type="number" placeholder="Mobile Number" formControlName="mobileNumber" required>
                               </mat-form-field>
                               <mat-form-field class="flex-1" appearance="outline">
-                                <mat-label>Date of Birth (as per Aadhaar)</mat-label>
+                                <mat-label>Date of Birth (as per Government ID)</mat-label>
                                 <input matInput [matDatepicker]="picker" formControlName="dob" required>
                                 <mat-hint>MM/DD/YYYY</mat-hint>
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -127,7 +127,7 @@
                               </mat-form-field>
                             </div>
                             <div class="actions" fxLayout="row">
-                              <button color="warn" mat-button matStepperPrevious type="button" (click)="cancel()">Canel</button>
+                              <button color="warn" mat-button matStepperPrevious type="button" (click)="cancel()">Cancel</button>
                               <button color="primary" mat-raised-button [disabled]="!form.valid" (click)="openDialogue()">Submit</button>
                             </div>
                           </form>
@@ -135,43 +135,44 @@
                       </mat-tab>
                     </mat-tab-group>
                   </div>
-                  <div class="p-3" *ngIf="form.valid" >
-                    <h1 class="underline text-lg">Customer Details</h1><br>
-                    <div class="flex">
-                      <span class="font-bold">Name</span>&nbsp;&nbsp;:&nbsp;&nbsp;<span>Alex</span><br>
-                    </div>
-                    <div class="flex">
-                      <span class="font-bold">Mobile no.</span>&nbsp;&nbsp;:&nbsp;&nbsp;<span>12345678</span><br>
-                    </div>                    
-                    <div class="flex">
-                      <span class="font-bold">Email</span>&nbsp;&nbsp;:&nbsp;&nbsp;<span>alex@gmail.com</span>
-                    </div>
+                  <mat-card class="bg-stone-300" *ngIf="form.valid">
+                      <h1 class="underline text-lg">Customer Details</h1><br>
+                      <div class="flex">
+                        <span class="font-bold">Name</span>&nbsp;&nbsp;:&nbsp;&nbsp;<span>Alex</span><br>
+                      </div>
+                      <div class="flex">
+                        <span class="font-bold">Mobile no.</span>&nbsp;&nbsp;:&nbsp;&nbsp;<span>12345678</span><br>
+                      </div>                    
+                      <div class="flex">
+                        <span class="font-bold">Email</span>&nbsp;&nbsp;:&nbsp;&nbsp;<span>alex@gmail.com</span>
+                      </div>
+  
+                      <!-- <table  mat-table [dataSource]="dataSource" class="mat-elevation-z2 demo-table">
+                        <ng-container  matColumnDef="position">
+                          <th mat-header-cell *matHeaderCellDef>No.</th>
+                          <td mat-cell *matCellDef="let element">{{element.position}}</td>
+                        </ng-container>
+                      
+                        <ng-container  matColumnDef="name">
+                          <th mat-header-cell *matHeaderCellDef>Name</th>
+                          <td mat-cell *matCellDef="let element">{{element.name}}</td>
+                        </ng-container>
+                      
+                        <ng-container  matColumnDef="cardtype">
+                          <th mat-header-cell *matHeaderCellDef>Card type</th>
+                          <td mat-cell *matCellDef="let element">{{element.cardtype}}</td>
+                        </ng-container>
+                      
+                        <tr mat-header-row  class="bg-primary" *matHeaderRowDef="displayedColumns"></tr>
+                        <tr
+                            mat-row
+                            (click)="clickedRows.add(row)"
+                            [class.demo-row-is-clicked]="clickedRows.has(row)"
+                            *matRowDef="let row; columns: displayedColumns;"
+                        ></tr>
+                      </table> -->
 
-                    <!-- <table  mat-table [dataSource]="dataSource" class="mat-elevation-z2 demo-table">
-                      <ng-container  matColumnDef="position">
-                        <th mat-header-cell *matHeaderCellDef>No.</th>
-                        <td mat-cell *matCellDef="let element">{{element.position}}</td>
-                      </ng-container>
-                    
-                      <ng-container  matColumnDef="name">
-                        <th mat-header-cell *matHeaderCellDef>Name</th>
-                        <td mat-cell *matCellDef="let element">{{element.name}}</td>
-                      </ng-container>
-                    
-                      <ng-container  matColumnDef="cardtype">
-                        <th mat-header-cell *matHeaderCellDef>Card type</th>
-                        <td mat-cell *matCellDef="let element">{{element.cardtype}}</td>
-                      </ng-container>
-                    
-                      <tr mat-header-row  class="bg-primary" *matHeaderRowDef="displayedColumns"></tr>
-                      <tr
-                          mat-row
-                          (click)="clickedRows.add(row)"
-                          [class.demo-row-is-clicked]="clickedRows.has(row)"
-                          *matRowDef="let row; columns: displayedColumns;"
-                      ></tr>
-                    </table> -->
-                  </div>
+                  </mat-card>
                 </div>
                 <div class="flex-1">
                   <img class="object-cover" src="./../../../../assets/img/demo/Sinch-SMS-Verification-overview-image.png" alt="">
@@ -219,11 +220,11 @@
                           </div>
                           <div class="grid grid-cols-2 sm:grid-cols-2 gap-1">
                             <mat-form-field class="flex-1" appearance="outline">
-                              <mat-label>Name as per Aadhaar</mat-label>
-                              <input matInput type="text" placeholder="Name as per Aadhaar" formControlName="name" required>
+                              <mat-label>Name as per Government ID</mat-label>
+                              <input matInput type="text" placeholder="Name as per Government ID" formControlName="name" required>
                             </mat-form-field>
                             <mat-form-field class="flex-1" appearance="outline">
-                              <mat-label>Date of Birth (as per Aadhaar)</mat-label>
+                              <mat-label>Date of Birth (as per Government ID)</mat-label>
                               <input matInput [matDatepicker]="picker" formControlName="dob" required>
                               <mat-hint>MM/DD/YYYY</mat-hint>
                               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -231,7 +232,7 @@
                             </mat-form-field>
                           </div>
                           <div class="actions" fxLayout="row">
-                            <button color="warn" mat-button matStepperPrevious type="button" (click)="cancel()">Canel</button>
+                            <button color="warn" mat-button matStepperPrevious type="button" (click)="cancel()">Cancel</button>
                             <button color="primary" mat-raised-button [disabled]="!form.valid" (click)="openDialogue()">Submit</button>
                           </div>
                         </form>
